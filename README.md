@@ -24,4 +24,20 @@ EFK – ElasticSearch, Fluentd, Kibana – stack. Kibana is going to be the visu
 
 Everything in the stack is self-contained so a very simple apply is enough
 
-$ kubectl apply -f k8s/efk-stack.yaml
+**Running the example**
+Build the docker image and the application
+
+    $ docker build -t fluentd-multiline-java:latest .
+    
+Side note, if you are building for a minikube environment, you can issue the eval $(minikube docker-env) command to build the image for the K8S registry.
+
+The next thing is to deploy the application to Kubernetes
+
+    $ kubectl apply -f k8s/fluentd-multiline-java-deployment.yaml
+    
+Then deploy the EFK stack
+
+    $ kubectl apply -f k8s/efk-stack.yaml
+In case of minikube, set up tunneling since Kibana is exposed via a LoadBalancer.
+
+Then access Kibana at the external IP of the LoadBalancer and the 5601 port.
