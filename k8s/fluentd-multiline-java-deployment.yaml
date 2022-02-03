@@ -22,5 +22,5 @@ spec:
     spec:
       containers:
         - name: fluentd-multiline-java
-          image: fluentd-multiline-java:latest
+          image: tushardashpute/fluentd-multiline-java:latest
           imagePullPolicy: IfNotPresent
