@@ -32,18 +32,6 @@ mountOptions:
   - debug
 volumeBindingMode: Immediate
 ---
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: task-pv-claimr
-spec:
-  storageClassName: standard
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 3Gi
----
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
