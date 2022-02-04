@@ -60,6 +60,7 @@ Here we are using EBS volume as a volume mount. Need to follow below steps:
     4. Attach the created PVC to the pods (vloume mount --> valumes)
 
 But here for the Statefulset (es-cluster) volumes option is not available. So we need to follow two steps only.
+
     1.Create EBS Storage class
     2.Attached the PVC 
 
