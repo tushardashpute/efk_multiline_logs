@@ -10,9 +10,9 @@ https://arnoldgalovics.com/java-and-spring-boot-multiline-log-support-for-fluent
 The Log Collection In K8S
 There are different ways to collect logs from a Kubernetes cluster. You can:
 
-1.use sidecar containers
-2.have the application push the logs into the logging service directly
-3.deploy a log collector agent to each cluster node to collect the logs
+    1.use sidecar containers
+    2.have the application push the logs into the logging service directly
+    3.deploy a log collector agent to each cluster node to collect the logs
 
 I am using 3rd option, having a dedicated agent running on the cluster nodes.
 
@@ -54,14 +54,14 @@ https://medium.com/pablo-perez/launching-a-pod-with-an-existing-ebs-volume-mount
 
 Here we are using EBS volume as a volume mount. Need to follow below steps:
 
-1. Create Storage Class
-2. Create Physical Volume (with existing EBS volume ID)
-3. Create PVC for the PV 
-4. Attach the created PVC to the pods (vloume mount --> valumes)
+    1. Create Storage Class
+    2. Create Physical Volume (with existing EBS volume ID)
+    3. Create PVC for the PV 
+    4. Attach the created PVC to the pods (vloume mount --> valumes)
 
 But here for the Statefulset (es-cluster) volumes option is not available. So we need to follow two steps only.
-1.Create EBS Storage class
-2.Attached the PVC 
+    1.Create EBS Storage class
+    2.Attached the PVC 
 
           volumeMounts:
             - name: data
