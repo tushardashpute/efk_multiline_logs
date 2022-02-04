@@ -32,21 +32,6 @@ mountOptions:
   - debug
 volumeBindingMode: Immediate
 ---
-kind: PersistentVolume
-apiVersion: v1
-metadata:
-  name: test2
-  labels:
-    type: amazonEBS
-spec:
-  capacity:
-    storage: 1Gi
-accessModes:
-  - ReadWriteOnce
-awsElasticBlockStore:
-  volumeID: vol-0b402cb854e070fad
-  fsType: ext4
----
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
@@ -57,7 +42,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi
+      storage: 3Gi
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -125,16 +110,10 @@ spec:
           command: ["sh", "-c", "ulimit -n 65536"]
           securityContext:
             privileged: true
-  volumeClaimTemplates:
-    - metadata:
-        name: data
-        labels:
-          app: elasticsearch
-      spec:
-        accessModes: [ "ReadWriteMany" ]
-        resources:
-          requests:
-            storage: 10Gi
+  volumes:
+  - name: persistent-storage
+    persistentVolumeClaim:
+      claimName: task-pv-claimr
 ---
 apiVersion: v1
 kind: Service
