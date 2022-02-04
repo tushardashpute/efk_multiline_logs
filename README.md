@@ -2,6 +2,11 @@
 EFK Multiline Logs
 
 
+https://github.com/galovics/fluentd-multiline-java.git
+
+https://arnoldgalovics.com/java-and-spring-boot-multiline-log-support-for-fluentd-efk-stack/
+
+
 The Log Collection In K8S
 There are different ways to collect logs from a Kubernetes cluster. You can:
 
@@ -41,3 +46,37 @@ Then deploy the EFK stack
 In case of minikube, set up tunneling since Kibana is exposed via a LoadBalancer.
 
 Then access Kibana at the external IP of the LoadBalancer and the 5601 port.
+
+
+**Using EBS volume for volume mounts**
+
+https://medium.com/pablo-perez/launching-a-pod-with-an-existing-ebs-volume-mounted-in-k8s-7b5506fa7fa3
+
+Here we are using EBS volume as a volume mount. Need to follow below steps:
+
+1. Create Storage Class
+2. Create Physical Volume (with existing EBS volume ID)
+3. Create PVC for the PV 
+4. Attach the created PVC to the pods (vloume mount --> valumes)
+
+But here for the Statefulset (es-cluster) volumes option is not available. So we need to follow two steps only.
+1.Create EBS Storage class
+2.Attached the PVC 
+
+          volumeMounts:
+            - name: data
+              mountPath: /usr/share/elasticsearch/data
+
+          volumeClaimTemplates:
+          - apiVersion: v1
+            kind: PersistentVolumeClaim
+            metadata:
+              creationTimestamp: null
+              name: data
+            spec:
+              accessModes:
+              - ReadWriteOnce
+              resources:
+                requests:
+                  storage: 2Gi
+              volumeMode: Filesystem
