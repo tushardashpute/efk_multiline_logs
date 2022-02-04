@@ -98,10 +98,19 @@ spec:
           command: ["sh", "-c", "ulimit -n 65536"]
           securityContext:
             privileged: true
-  volumes:
-  - name: persistent-storage
-    persistentVolumeClaim:
-      claimName: task-pv-claimr
+  volumeClaimTemplates:
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      creationTimestamp: null
+      name: data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 2Gi
+      volumeMode: Filesystem
 ---
 apiVersion: v1
 kind: Service
